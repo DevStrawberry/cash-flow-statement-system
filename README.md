@@ -1,64 +1,145 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# 💰 Cash Flow Statement System (Sistema de Demonstração de Fluxo de Caixa)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este é um projeto de aplicação web para registrar movimentos de caixa e gerar a Demonstração do Fluxo de Caixa (DFC) utilizando o **Método Direto**, com uma arquitetura robusta baseada em **Programação Orientada a Objetos (POO)** e no padrão **MVC estendido**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🇧🇷 Arquitetura e Conceitos (Português)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+O projeto foi construído sobre o **Framework Laravel**, com ênfase na separação de responsabilidades (**Clean Architecture/DDD lite**) para isolar a lógica contábil.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 🧩 Pilares Tecnológicos
 
-## Learning Laravel
+- **Backend:** PHP (v7.4+) com Laravel (v8.x)  
+- **Banco de Dados:** MySQL  
+- **Frontend:** Blade, HTML/CSS (com Mix/Webpack para assets)  
+- **Arquitetura:** MVC com Camada de Serviço e Domínio POO  
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 🧠 Estrutura POO e Fluxo de Dados
 
-## Laravel Sponsors
+O princípio central é usar o **Polimorfismo** para classificar as transações, garantindo que o núcleo contábil seja modular.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+| Camada | Diretório | Responsabilidade |
+|--------|------------|------------------|
+| Domínio POO | `app/Classes/Contabilidade` | Contém as classes puras (`Operacional`, `Investimento`, `Financiamento`) que herdam de `MovimentoCaixaBase`. Define as regras de classificação da DFC. |
+| Serviços (Lógica) | `app/Services` | Contém `MovimentoCaixaService` (salvar no DB) e `DFCService` (realizar cálculos, agrupar transações e gerar o relatório). |
+| Model (Persistência) | `app/Models` | Mapeia a tabela `movimento_caixas` (Eloquent ORM). |
+| Controller (Ação) | `app/Http/Controllers` | Recebe a requisição, instancia a classe POO correta e delega ao Service. |
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### ⚙️ Configuração Inicial (Setup)
 
-## Contributing
+Siga estes passos no terminal para configurar o projeto (assumindo PHP, Composer e MySQL instalados):
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### 1️⃣ Instalar Dependências PHP:
+```bash
+composer install
+```
 
-## Code of Conduct
+#### 2️⃣ Configurar o Banco de Dados:
+Crie um banco de dados MySQL chamado **cashflow** (ou o nome que preferir).
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Copie o arquivo de ambiente:
+```bash
+cp .env.example .env
+```
 
-## Security Vulnerabilities
+Edite o arquivo `.env` com suas credenciais do MySQL (exemplo):
+```
+DB_DATABASE=cashflow
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### 3️⃣ Gerar Chave e Rodar Migrações:
+```bash
+php artisan key:generate
+php artisan migrate
+```
 
-## License
+#### 4️⃣ Instalar Dependências Frontend (Opcional, mas Recomendado):
+```bash
+npm install
+npm run dev
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### 5️⃣ Iniciar o Servidor:
+```bash
+php artisan serve
+```
+
+Acesse a aplicação em: **http://127.0.0.1:8000**
+
+---
+
+## 🇬🇧 Architecture and Concepts (English)
+
+This is a **web application project** designed to record cash movements and generate the **Statement of Cash Flows (SCF/DFC)** using the **Direct Method**, structured with a strong **Object-Oriented Programming (OOP)** foundation and an **extended MVC pattern**.
+
+### 🧩 Technology Stack
+
+- **Backend:** PHP (v7.4+) with Laravel (v8.x)  
+- **Database:** MySQL  
+- **Frontend:** Blade, HTML/CSS (with Mix/Webpack for assets)  
+- **Architecture:** MVC with dedicated Service and OOP Domain layers  
+
+---
+
+### 🧠 OOP Structure and Data Flow
+
+The core principle involves using **Polymorphism** to classify transactions, ensuring the accounting core is modular and decoupled from the framework.
+
+| Layer | Directory | Responsibility |
+|-------|------------|----------------|
+| OOP Domain | `app/Classes/Contabilidade` | Holds the pure OOP classes (`Operacional`, `Investimento`, `Financiamento`) inheriting from `MovimentoCaixaBase`. Defines the DFC classification rules. |
+| Services (Logic) | `app/Services` | Contains `MovimentoCaixaService` (DB saving logic) and `DFCService` (calculates, aggregates, and generates the final report). |
+| Model (Persistence) | `app/Models` | Maps the `movimento_caixas` database table (Eloquent ORM). |
+| Controller (Action) | `app/Http/Controllers` | Receives HTTP requests, instantiates the correct OOP class, and delegates tasks to the Service layer. |
+
+---
+
+### ⚙️ Initial Configuration (Setup)
+
+Follow these steps in your terminal to set up the project (assuming PHP, Composer, and MySQL are installed):
+
+#### 1️⃣ Install PHP Dependencies:
+```bash
+composer install
+```
+
+#### 2️⃣ Configure the Database:
+Create a MySQL database named **cashflow** (or a name of your choice).
+
+Copy the environment file:
+```bash
+cp .env.example .env
+```
+
+Edit the `.env` file with your MySQL credentials (e.g.):
+```
+DB_DATABASE=cashflow
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+#### 3️⃣ Generate Key and Run Migrations:
+```bash
+php artisan key:generate
+php artisan migrate
+```
+
+#### 4️⃣ Install Frontend Dependencies (Optional, but Recommended):
+```bash
+npm install
+npm run dev
+```
+
+#### 5️⃣ Start the Server:
+```bash
+php artisan serve
+```
+
+Access the application at: **http://127.0.0.1:8000**
