@@ -2,22 +2,22 @@
 
 namespace App\Services;
 
-use App\Classes\Contabilidade\MovimentoCaixaBase;
-use App\Classes\Contabilidade\Operacional;
 use App\Models\MovimentoCaixa;
+use App\Classes\Contabilidade\MovimentoCaixaBase;
 
 class MovimentoCaixaService
 {
-    public function registrar(MovimentoCaixaBase $movimento)
+    public function registrar(MovimentoCaixaBase $movimentoPuro, string $data): MovimentoCaixa
     {
-        $atividade = $movimento->getAtividade();
+        $tipoAtividade = $movimentoPuro->getAtividade();
 
-        MovimentoCaixa::create([
-            'valor' => $movimento->getValor(),
-            'descricao' => $movimento->getDescricao(),
-            'tipo_atividade' => $atividade,
+        $registro = MovimentoCaixa::create([
+            'valor'          => $movimentoPuro->getValor(),
+            'descricao'      => $movimentoPuro->getDescricao(),
+            'data_transacao' => $data,
+            'tipo_atividade' => $tipoAtividade,
         ]);
 
-        return true;
+        return $registro;
     }
 }
