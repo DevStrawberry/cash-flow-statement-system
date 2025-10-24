@@ -1,14 +1,14 @@
-# 💰 Cash Flow Statement System (Sistema de Demonstração de Fluxo de Caixa)
+# Cash Flow Statement System (Sistema de Demonstração de Fluxo de Caixa)
 
 Este é um projeto de aplicação web para registrar movimentos de caixa e gerar a Demonstração do Fluxo de Caixa (DFC) utilizando o **Método Direto**, com uma arquitetura robusta baseada em **Programação Orientada a Objetos (POO)** e no padrão **MVC estendido**.
 
 ---
 
-## 🇧🇷 Arquitetura e Conceitos (Português)
+## Arquitetura e Conceitos (Português)
 
 O projeto foi construído sobre o **Framework Laravel**, com ênfase na separação de responsabilidades (**Clean Architecture/DDD lite**) para isolar a lógica contábil.
 
-### 🧩 Pilares Tecnológicos
+### Pilares Tecnológicos
 
 - **Backend:** PHP (v7.4+) com Laravel (v8.x)  
 - **Banco de Dados:** MySQL  
@@ -17,7 +17,7 @@ O projeto foi construído sobre o **Framework Laravel**, com ênfase na separaç
 
 ---
 
-### 🧠 Estrutura POO e Fluxo de Dados
+### Estrutura POO e Fluxo de Dados
 
 O princípio central é usar o **Polimorfismo** para classificar as transações, garantindo que o núcleo contábil seja modular.
 
@@ -30,7 +30,7 @@ O princípio central é usar o **Polimorfismo** para classificar as transações
 
 ---
 
-### ⚙️ Configuração Inicial (Setup)
+### Configuração Inicial (Setup)
 
 Siga estes passos no terminal para configurar o projeto (assumindo PHP, Composer e MySQL instalados):
 
@@ -75,11 +75,11 @@ Acesse a aplicação em: **http://127.0.0.1:8000**
 
 ---
 
-## 🇬🇧 Architecture and Concepts (English)
+## Architecture and Concepts (English)
 
 This is a **web application project** designed to record cash movements and generate the **Statement of Cash Flows (SCF/DFC)** using the **Direct Method**, structured with a strong **Object-Oriented Programming (OOP)** foundation and an **extended MVC pattern**.
 
-### 🧩 Technology Stack
+### Technology Stack
 
 - **Backend:** PHP (v7.4+) with Laravel (v8.x)  
 - **Database:** MySQL  
@@ -88,7 +88,7 @@ This is a **web application project** designed to record cash movements and gene
 
 ---
 
-### 🧠 OOP Structure and Data Flow
+### OOP Structure and Data Flow
 
 The core principle involves using **Polymorphism** to classify transactions, ensuring the accounting core is modular and decoupled from the framework.
 
@@ -101,7 +101,7 @@ The core principle involves using **Polymorphism** to classify transactions, ens
 
 ---
 
-### ⚙️ Initial Configuration (Setup)
+### Initial Configuration (Setup)
 
 Follow these steps in your terminal to set up the project (assuming PHP, Composer, and MySQL are installed):
 
