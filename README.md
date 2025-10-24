@@ -1,77 +1,6 @@
 # Cash Flow Statement System (Sistema de Demonstração de Fluxo de Caixa)
 
-Este é um projeto de aplicação web para registrar movimentos de caixa e gerar a Demonstração do Fluxo de Caixa (DFC) utilizando o **Método Direto**, com uma arquitetura robusta baseada em **Programação Orientada a Objetos (POO)** e no padrão **MVC estendido**.
-
----
-
-## Arquitetura e Conceitos (Português)
-
-O projeto foi construído sobre o **Framework Laravel**, com ênfase na separação de responsabilidades (**Clean Architecture/DDD lite**) para isolar a lógica contábil.
-
-### Pilares Tecnológicos
-
-- **Backend:** PHP (v7.4+) com Laravel (v8.x)  
-- **Banco de Dados:** MySQL  
-- **Frontend:** Blade, HTML/CSS (com Mix/Webpack para assets)  
-- **Arquitetura:** MVC com Camada de Serviço e Domínio POO  
-
----
-
-### Estrutura POO e Fluxo de Dados
-
-O princípio central é usar o **Polimorfismo** para classificar as transações, garantindo que o núcleo contábil seja modular.
-
-| Camada | Diretório | Responsabilidade |
-|--------|------------|------------------|
-| Domínio POO | `app/Classes/Contabilidade` | Contém as classes puras (`Operacional`, `Investimento`, `Financiamento`) que herdam de `MovimentoCaixaBase`. Define as regras de classificação da DFC. |
-| Serviços (Lógica) | `app/Services` | Contém `MovimentoCaixaService` (salvar no DB) e `DFCService` (realizar cálculos, agrupar transações e gerar o relatório). |
-| Model (Persistência) | `app/Models` | Mapeia a tabela `movimento_caixas` (Eloquent ORM). |
-| Controller (Ação) | `app/Http/Controllers` | Recebe a requisição, instancia a classe POO correta e delega ao Service. |
-
----
-
-### Configuração Inicial (Setup)
-
-Siga estes passos no terminal para configurar o projeto (assumindo PHP, Composer e MySQL instalados):
-
-#### 1️⃣ Instalar Dependências PHP:
-```bash
-composer install
-```
-
-#### 2️⃣ Configurar o Banco de Dados:
-Crie um banco de dados MySQL chamado **cashflow** (ou o nome que preferir).
-
-Copie o arquivo de ambiente:
-```bash
-cp .env.example .env
-```
-
-Edite o arquivo `.env` com suas credenciais do MySQL (exemplo):
-```
-DB_DATABASE=cashflow
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-#### 3️⃣ Gerar Chave e Rodar Migrações:
-```bash
-php artisan key:generate
-php artisan migrate
-```
-
-#### 4️⃣ Instalar Dependências Frontend (Opcional, mas Recomendado):
-```bash
-npm install
-npm run dev
-```
-
-#### 5️⃣ Iniciar o Servidor:
-```bash
-php artisan serve
-```
-
-Acesse a aplicação em: **http://127.0.0.1:8000**
+This is a web application project to record cash movements and generate the Cash Flow Statement (CFS) using the **Direct Method**, with a robust architecture based on **Object Oriented Programming (OOP)** and the **extended MVC** pattern.
 
 ---
 
@@ -143,3 +72,74 @@ php artisan serve
 ```
 
 Access the application at: **http://127.0.0.1:8000**
+
+---
+
+## Arquitetura e Conceitos (Português)
+
+O projeto foi construído sobre o **Framework Laravel**, com ênfase na separação de responsabilidades (**Clean Architecture/DDD lite**) para isolar a lógica contábil.
+
+### Pilares Tecnológicos
+
+- **Backend:** PHP (v7.4+) com Laravel (v8.x)  
+- **Banco de Dados:** MySQL  
+- **Frontend:** Blade, HTML/CSS (com Mix/Webpack para assets)  
+- **Arquitetura:** MVC com Camada de Serviço e Domínio POO  
+
+---
+
+### Estrutura POO e Fluxo de Dados
+
+O princípio central é usar o **Polimorfismo** para classificar as transações, garantindo que o núcleo contábil seja modular.
+
+| Camada | Diretório | Responsabilidade |
+|--------|------------|------------------|
+| Domínio POO | `app/Classes/Contabilidade` | Contém as classes puras (`Operacional`, `Investimento`, `Financiamento`) que herdam de `MovimentoCaixaBase`. Define as regras de classificação da DFC. |
+| Serviços (Lógica) | `app/Services` | Contém `MovimentoCaixaService` (salvar no DB) e `DFCService` (realizar cálculos, agrupar transações e gerar o relatório). |
+| Model (Persistência) | `app/Models` | Mapeia a tabela `movimento_caixas` (Eloquent ORM). |
+| Controller (Ação) | `app/Http/Controllers` | Recebe a requisição, instancia a classe POO correta e delega ao Service. |
+
+---
+
+### Configuração Inicial (Setup)
+
+Siga estes passos no terminal para configurar o projeto (assumindo PHP, Composer e MySQL instalados):
+
+#### 1️⃣ Instalar Dependências PHP:
+```bash
+composer install
+```
+
+#### 2️⃣ Configurar o Banco de Dados:
+Crie um banco de dados MySQL chamado **cashflow** (ou o nome que preferir).
+
+Copie o arquivo de ambiente:
+```bash
+cp .env.example .env
+```
+
+Edite o arquivo `.env` com suas credenciais do MySQL (exemplo):
+```
+DB_DATABASE=cashflow
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+#### 3️⃣ Gerar Chave e Rodar Migrações:
+```bash
+php artisan key:generate
+php artisan migrate
+```
+
+#### 4️⃣ Instalar Dependências Frontend (Opcional, mas Recomendado):
+```bash
+npm install
+npm run dev
+```
+
+#### 5️⃣ Iniciar o Servidor:
+```bash
+php artisan serve
+```
+
+Acesse a aplicação em: **http://127.0.0.1:8000**
